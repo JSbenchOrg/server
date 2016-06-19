@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+    backupGlobals="false"
+    colors="true"
+    bootstrap="tests/bootstrap.php">
+
+    <php>
+        <const name="BASE_URL" value="http://127.0.0.1"/>
+    </php>
+
+    <logging>
+        <log type="testdox-text" target="extra/logs/testdox.txt"></log>
+        <!--<log type="coverage-clover" target="extra/logs/coverage.xml"/>-->
+        <!--<log type="coverage-html" target="extra/logs/coverage/"/>-->
+    </logging>
+
+    <testsuites>
+        <testsuite name="all">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./app</directory>
+            <exclude>
+                <directory>./tests</directory>
+                <directory>./libs</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

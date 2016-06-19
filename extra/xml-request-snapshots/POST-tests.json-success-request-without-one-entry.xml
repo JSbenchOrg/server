@@ -1,0 +1,29 @@
+<RestClientRequest>
+  <option name="biscuits">
+    <list />
+  </option>
+  <option name="httpMethod" value="POST" />
+  <option name="urlBase" value="http://jsbench.net.bogdan" />
+  <option name="urlPath" value="/tests.json" />
+  <option name="headers">
+    <list>
+      <KeyValuePair>
+        <option name="key" value="Accept" />
+        <option name="value" value="*/*" />
+      </KeyValuePair>
+      <KeyValuePair>
+        <option name="key" value="Cache-Control" />
+        <option name="value" value="no-cache" />
+      </KeyValuePair>
+    </list>
+  </option>
+  <option name="parameters">
+    <list />
+  </option>
+  <option name="parametersEnabled" value="true" />
+  <option name="haveTextToSend" value="true" />
+  <option name="haveFileToSend" value="false" />
+  <option name="isFileUpload" value="false" />
+  <option name="textToSend" value="{   &quot;title&quot;: &quot;My test case&quot;,   &quot;slug&quot;: &quot;auto-generated-slug&quot;,   &quot;description&quot;: &quot;This is a description&quot;,   &quot;status&quot;: &quot;public&quot;,   &quot;harness&quot;: {     &quot;setUp&quot;: &quot;var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = /Hell/i;&quot;   },   &quot;entries&quot;: {     &quot;1&quot;: {       &quot;title&quot;: &quot;test&quot;,       &quot;code&quot;: &quot;/Hell/i.test(str);&quot;,       &quot;results&quot;: {         &quot;id&quot;: 1,         &quot;error&quot;: null,         &quot;opsPerSec&quot;: &quot;50&quot;,         &quot;pm&quot;: &quot;1.00&quot;,         &quot;runSamples&quot;: 62,         &quot;winner&quot;: true       }     },     &quot;3&quot;: {       &quot;title&quot;: &quot;match&quot;,       &quot;code&quot;: &quot;str.match(q).length &gt; 0;&quot;,       &quot;results&quot;: {         &quot;id&quot;: 3,         &quot;error&quot;: null,         &quot;opsPerSec&quot;: &quot;500&quot;,         &quot;pm&quot;: &quot;0.95&quot;,         &quot;runSamples&quot;: 61       }     }   },   &quot;env&quot;: {     &quot;browserName&quot;: &quot;Chrome&quot;,     &quot;browserVersion&quot;: &quot;50.0.2661.94&quot;,     &quot;os&quot;: {       &quot;architecture&quot;: 32,       &quot;family&quot;: &quot;Windows&quot;,       &quot;version&quot;: &quot;10.0&quot;     }   } }" />
+  <option name="filesToSend" value="" />
+</RestClientRequest>

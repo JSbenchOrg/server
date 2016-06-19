@@ -1,0 +1,48 @@
+{
+  "title": "My test case",
+  "slug": "auto-generated-slug",
+  "status": "public",
+  "description": "This is a description",
+  "revisionNumber": 1,
+  "harness": {
+    "html": "",
+    "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+    "tearDown": ""
+  },
+  "entries": [
+    {
+      "id": 1,
+      "title": "test",
+      "code": "\/Hell\/i.test(str);",
+      "totals": [
+        {
+          "metricType": "opsPerSec",
+          "metricValue": "50",
+          "runCount": "2",
+          "browserName": "Chrome",
+          "browserVersion": "50.0.2661.94",
+          "osArchitecture": "32",
+          "osFamily": "Windows",
+          "osVersion": "10.0"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "match",
+      "code": "str.match(q).length > 0;",
+      "totals": [
+        {
+          "metricType": "opsPerSec",
+          "metricValue": "300",
+          "runCount": "2",
+          "browserName": "Chrome",
+          "browserVersion": "50.0.2661.94",
+          "osArchitecture": "32",
+          "osFamily": "Windows",
+          "osVersion": "10.0"
+        }
+      ]
+    }
+  ]
+}

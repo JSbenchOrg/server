@@ -1,0 +1,54 @@
+{
+  "title": "My test case",
+  "slug": "auto-generated-slug",
+  "description": "This is a description",
+  "status": "public",
+  "harness": {
+    "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = /Hell/i;"
+  },
+  "entries": {
+    "1": {
+      "title": "test",
+      "code": "/Hell/i.test(str);",
+      "results": {
+        "id": 1,
+        "error": null,
+        "opsPerSec": "50",
+        "pm": "1.00",
+        "runSamples": 62,
+        "winner": true
+      }
+    },
+    "2": {
+      "title": "search",
+      "code": "str.search(q) > -1;",
+      "results": {
+        "id": 2,
+        "error": null,
+        "opsPerSec": "111",
+        "pm": "1.19",
+        "runSamples": 63
+      }
+    },
+    "3": {
+      "title": "match",
+      "code": "str.match(q).length > 0;",
+      "results": {
+        "id": 3,
+        "error": null,
+        "opsPerSec": "100",
+        "pm": "0.95",
+        "runSamples": 61
+      }
+    }
+  },
+  "env": {
+    "browserName": "Chrome",
+    "browserVersion": "50.0.2661.94",
+    "os": {
+      "architecture": 32,
+      "family": "Windows",
+      "version": "10.0"
+    }
+  }
+}

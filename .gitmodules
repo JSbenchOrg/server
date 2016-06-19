@@ -1,0 +1,6 @@
+[submodule "deps/flight"]
+	path = deps/flight
+	url = https://github.com/bogdananton/flight.git
+[submodule "deps/sparrow"]
+	path = deps/sparrow
+	url = https://github.com/bogdananton/sparrow.git

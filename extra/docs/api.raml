@@ -1,0 +1,925 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/apiplatform/proxy/http://mocksvc.mulesoft.com/mocks/2e997d6c-d48c-436b-a0e0-d422fa77116d
+title: API
+version: 1.0.0
+
+mediaType: application/json
+
+/tests.json:
+ get:
+  responses:
+    200:
+      body:
+        application/json:
+          example: |
+           [
+            {
+              "title": "My test case",
+              "slug": "auto-generated-slug",
+              "status": "public",
+              "description": "This is a description",
+              "revisionNumber": 1,
+              "harness": {
+                "html": "",
+                "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                "tearDown": ""
+              },
+              "entries": [
+                {
+                  "id": 1,
+                  "title": "test",
+                  "code": "\/Hell\/i.test(str);",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "50",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                },
+                {
+                  "id": 2,
+                  "title": "search",
+                  "code": "str.search(q) > -1;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "111",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                },
+                {
+                  "id": 3,
+                  "title": "match",
+                  "code": "str.match(q).length > 0;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                }
+              ]
+            }
+            ]
+
+ post:
+  body:
+    required: true,
+    properties:
+      title:
+        type: string,
+        required: false,
+        minLength: 0,
+        maxLength: 255
+      slug:
+        description: unique and used as identifier, even for revisions,
+        type: string,
+        required: true,
+        minLength: 1,
+        maxLength: 255
+      description:
+        type: string,
+        required: false,
+        minLength: 0,
+        maxLength: 1000
+      status:
+        description: default to private
+        enum: ["public", "private"]
+      harness:
+        type: object,
+        properties:
+          html:
+            type: string,
+            required: false,
+            minLength: 0,
+            maxLength: 5000
+          setUp:
+            type: string,
+            required: false,
+            minLength: 0,
+            maxLength: 5000
+          tearDown:
+            type: string,
+            required: false,
+            minLength: 0,
+            maxLength: 5000
+
+    application/json:
+      example: |
+        {
+          "title": "My test case",
+          "slug": "auto-generated-slug",
+          "description": "This is a description",
+          "status": "public",
+          "harness": {
+            "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = /Hell/i;"
+          },
+          "entries": {
+            "1": {
+              "title": "test",
+              "code": "/Hell/i.test(str);",
+              "results": {
+                "id": 1,
+                "error": null,
+                "opsPerSec": "50",
+                "pm": "1.00",
+                "runSamples": 62,
+                "winner": true
+              }
+            },
+            "2": {
+              "title": "search",
+              "code": "str.search(q) > -1;",
+              "results": {
+                "id": 2,
+                "error": null,
+                "opsPerSec": "111",
+                "pm": "1.19",
+                "runSamples": 63
+              }
+            },
+            "3": {
+              "title": "match",
+              "code": "str.match(q).length > 0;",
+              "results": {
+                "id": 3,
+                "error": null,
+                "opsPerSec": "100",
+                "pm": "0.95",
+                "runSamples": 61
+              }
+            }
+          },
+          "env": {
+            "browserName": "Chrome",
+            "browserVersion": "50.0.2661.94",
+            "os": {
+              "architecture": 32,
+              "family": "Windows",
+              "version": "10.0"
+            }
+          }
+        }
+
+  responses:
+    200:
+      body:
+        application/json:
+          example: |
+            {
+              "title": "My test case",
+              "slug": "auto-generated-slug",
+              "status": "public",
+              "description": "This is a description",
+              "revisionNumber": 1,
+              "harness": {
+                "html": "",
+                "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                "tearDown": ""
+              },
+              "entries": [
+                {
+                  "id": 1,
+                  "title": "test",
+                  "code": "\/Hell\/i.test(str);",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "50",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                },
+                {
+                  "id": 2,
+                  "title": "search",
+                  "code": "str.search(q) > -1;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "111",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                },
+                {
+                  "id": 3,
+                  "title": "match",
+                  "code": "str.match(q).length > 0;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                }
+              ]
+            }
+
+/test/{slug}/revisions.json:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "title": "My test case",
+                  "slug": "check-revisions-increment-on-harness-change",
+                  "status": "public",
+                  "description": "This is a description",
+                  "revisionNumber": 4,
+                  "harness": {
+                    "html": "var harnessChanged = \"html\";",
+                    "setUp": "var harnessChanged = \"setUp\";",
+                    "tearDown": "var harnessChanged = \"tearDown\";"
+                  },
+                  "entries": [
+                    {
+                      "id": 1,
+                      "title": "test",
+                      "code": "\/Hell\/i.test(str);",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "3",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "search",
+                      "code": "str.search(q) > -1;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "3",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "title": "match",
+                      "code": "str.match(q).length > 0;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "3",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "My test case",
+                  "slug": "check-revisions-increment-on-harness-change",
+                  "status": "public",
+                  "description": "This is a description",
+                  "revisionNumber": 3,
+                  "harness": {
+                    "html": "var harnessChanged = \"html\";",
+                    "setUp": "var harnessChanged = \"setUp\";",
+                    "tearDown": ""
+                  },
+                  "entries": [
+                    {
+                      "id": 1,
+                      "title": "test",
+                      "code": "\/Hell\/i.test(str);",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "2",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "search",
+                      "code": "str.search(q) > -1;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "2",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "title": "match",
+                      "code": "str.match(q).length > 0;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "2",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "My test case",
+                  "slug": "check-revisions-increment-on-harness-change",
+                  "status": "public",
+                  "description": "This is a description",
+                  "revisionNumber": 2,
+                  "harness": {
+                    "html": "var harnessChanged = \"html\";",
+                    "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                    "tearDown": ""
+                  },
+                  "entries": [
+                    {
+                      "id": 1,
+                      "title": "test",
+                      "code": "\/Hell\/i.test(str);",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "search",
+                      "code": "str.search(q) > -1;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "title": "match",
+                      "code": "str.match(q).length > 0;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        },
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "50.0.2661.94",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "title": "My test case",
+                  "slug": "check-revisions-increment-on-harness-change",
+                  "status": "public",
+                  "description": "This is a description",
+                  "revisionNumber": 1,
+                  "harness": {
+                    "html": "",
+                    "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                    "tearDown": ""
+                  },
+                  "entries": [
+                    {
+                      "id": 1,
+                      "title": "test",
+                      "code": "\/Hell\/i.test(str);",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "50",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 2,
+                      "title": "search",
+                      "code": "str.search(q) > -1;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "111",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    },
+                    {
+                      "id": 3,
+                      "title": "match",
+                      "code": "str.match(q).length > 0;",
+                      "totals": [
+                        {
+                          "metricType": "opsPerSec",
+                          "metricValue": "100",
+                          "runCount": "1",
+                          "browserName": "Chrome",
+                          "browserVersion": "55",
+                          "osArchitecture": "32",
+                          "osFamily": "Windows",
+                          "osVersion": "10.0"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+
+/test/{slug}.json:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "title": "My test case",
+                "slug": "check-revisions-increment-on-harness-change",
+                "status": "public",
+                "description": "This is a description",
+                "revisionNumber": 2,
+                "harness": {
+                  "html": "var harnessChanged = \"html\";",
+                  "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                  "tearDown": ""
+                },
+                "entries": [
+                  {
+                    "id": 1,
+                    "title": "test",
+                    "code": "\/Hell\/i.test(str);",
+                    "totals": [
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "50",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "55",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      },
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "50",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "50.0.2661.94",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "title": "search",
+                    "code": "str.search(q) > -1;",
+                    "totals": [
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "111",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "55",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      },
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "111",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "50.0.2661.94",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      }
+                  ]
+                },
+                {
+                  "id": 3,
+                  "title": "match",
+                  "code": "str.match(q).length > 0;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "55",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    },
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                }
+  post:
+    description: Same as POST on /tests.json only this way the slug can be updated.
+
+/test/{slug}/{revisionNumber}.json:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "title": "My test case",
+                "slug": "check-revisions-increment-on-harness-change",
+                "status": "public",
+                "description": "This is a description",
+                "revisionNumber": 2,
+                "harness": {
+                  "html": "var harnessChanged = \"html\";",
+                  "setUp": "var str = 'Hello, world.',\n        q = 'Hell',\n        l = q.length,\n        re = \/Hell\/i;",
+                  "tearDown": ""
+                },
+                "entries": [
+                  {
+                    "id": 1,
+                    "title": "test",
+                    "code": "\/Hell\/i.test(str);",
+                    "totals": [
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "50",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "55",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      },
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "50",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "50.0.2661.94",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      }
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "title": "search",
+                    "code": "str.search(q) > -1;",
+                    "totals": [
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "111",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "55",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      },
+                      {
+                        "metricType": "opsPerSec",
+                        "metricValue": "111",
+                        "runCount": "1",
+                        "browserName": "Chrome",
+                        "browserVersion": "50.0.2661.94",
+                        "osArchitecture": "32",
+                        "osFamily": "Windows",
+                        "osVersion": "10.0"
+                      }
+                  ]
+                },
+                {
+                  "id": 3,
+                  "title": "match",
+                  "code": "str.match(q).length > 0;",
+                  "totals": [
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "55",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    },
+                    {
+                      "metricType": "opsPerSec",
+                      "metricValue": "100",
+                      "runCount": "1",
+                      "browserName": "Chrome",
+                      "browserVersion": "50.0.2661.94",
+                      "osArchitecture": "32",
+                      "osFamily": "Windows",
+                      "osVersion": "10.0"
+                    }
+                  ]
+                }
+
+/test/{slug}/totals/by-browser.json:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "title": "test",
+                  "totals": [
+                    {
+                      "browserName": "Chrome (55)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "175",
+                      "runCount": "2"
+                    },
+                    {
+                      "browserName": "Chrome (53)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "110",
+                      "runCount": "1"
+                    }
+                  ]
+                },
+                {
+                  "title": "search",
+                  "totals": [
+                    {
+                      "browserName": "Chrome (55)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "325",
+                      "runCount": "2"
+                    },
+                    {
+                      "browserName": "Chrome (53)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "210",
+                      "runCount": "1"
+                    }
+                  ]
+                },
+                {
+                  "title": "match",
+                  "totals": [
+                    {
+                      "browserName": "Chrome (55)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "475",
+                      "runCount": "2"
+                    },
+                    {
+                      "browserName": "Chrome (53)",
+                      "metricType": "opsPerSec",
+                      "metricValue": "310",
+                      "runCount": "1"
+                    }
+                  ]
+                }
+              ]
+
+
+/test/{slug}/{revisionNumber}/totals/by-browser.json:
+  get:
+    description: Same as get totals by browser for the latest revision.
+
+/log.json:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                    "msg" => "Error msg",
+                    "url" => "http://jsbench.org/page",
+                    "lineNo" => "1",
+                    "colNo" => "2",
+                    "trace" => "details...",
+                }
+              ]
+
+  post:
+    body:
+      application/json:
+        example: |
+          {
+              "msg" => "Error msg",
+              "url" => "http://jsbench.org/page",
+              "lineNo" => "1",
+              "colNo" => "2",
+              "trace" => "details...",
+          }
+
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                    "msg" => "Error msg",
+                    "url" => "http://jsbench.org/page",
+                    "lineNo" => "1",
+                    "colNo" => "2",
+                    "trace" => "details...",
+                }
+              ]
