@@ -2,4 +2,4 @@
 .env
 extra/logs/
 phpunit.xml
-html/config.php
+config.php

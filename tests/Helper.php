@@ -9,7 +9,7 @@ class Helper
 
     public function __construct()
     {
-        $config = require __DIR__ . '/../html/config.php';;
+        $config = require __DIR__ . '/../config.php';;
         $this->storage = new \Slim\PDO\Database($config['mysql']['dsn'], $config['mysql']['username'], $config['mysql']['password']);
     }
     public function resetDatabase($databaseName)
@@ -98,7 +98,7 @@ class Helper
         static $connection;
 
         if (!($connection instanceof \Sparrow)) {
-            $config = require_once __DIR__ . '/../html/config.php';
+            $config = require_once __DIR__ . '/../config.php';
             $dsn = 'mysql:host=' . $config['mysql-host'] . ';dbname=' . $config['mysql-database'] . ';charset=utf8';
             $connection = new \Sparrow();
             $connection->setDb(new \PDO($dsn, $config['mysql-username'], $config['mysql-password']));
