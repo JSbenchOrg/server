@@ -67,7 +67,10 @@ class TestCase
                 if ($checkUpdateSlugCollision && $slug != $input->slug) {
                     $testCaseExistingRevision = $getRevisionBySlug($input->slug);
                     if (!is_null($testCaseExistingRevision) && !$testCaseExistingRevision->isDraft()) {
-                        throw new Exception('There already is a test case with this slug [' . $input->slug . '].');
+                        throw new Exception(
+                            'There already is a test case with this slug [' . $input->slug . '].',
+                            Exception::EXISTING_SLUG
+                        );
                     }
                 }
 
@@ -82,9 +85,15 @@ class TestCase
                 }
 
             } catch (\Exception $e) {
-                throw (new Exception('Could not update the revision.'))
+                $exception = new Exception(
+                    'Could not update the revision.',
+                    Exception::INVALID_UPDATE
+                );
+
+                throw $exception
                     ->withDetails([
                         'reason' => $e->getMessage(),
+                        'code' => $e->getCode(),
                     ]);
             }
             if ($revisionId > 0) { // was updated, grab new instance
@@ -108,7 +117,7 @@ class TestCase
         if (count($listing) > 0) {
             return $listing[0]->toArray();
         }
-        throw new Exception('Not found.');
+        throw new Exception('Not found.', Exception::NOT_FOUND);
     }
 
     public function reportByBrowser($slug, $revisionNumber = null)
@@ -155,7 +164,7 @@ class TestCase
     public function addErrorLogEntry($data)
     {
         if (!is_array($data) || empty($data['msg']) || empty($data['lineNo']) || empty($data['colNo']) || empty($data['trace'])) {
-            throw new Exception('Invalid entry: ' . var_export($data, true));
+            throw new Exception('Invalid entry', Exception::INCOMPLETE_ERROR_STRUCTURE);
         }
         $data['url'] = array_key_exists('url', $data) ? $data['url'] : '';
         $this->store->logJavaScriptErrorEntry(

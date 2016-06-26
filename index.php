@@ -75,7 +75,6 @@ $engine->_route('POST /tests.json', function () use ($engine, $controller, $requ
         $response = $controller->find($model->slug);
         return $engine->_json($response);
     }
-    throw new \Exception("Error Processing Request", 1);
 });
 
 $engine->_route('POST /test/@slug.json', function ($slug) use ($engine, $controller, $request) {
@@ -84,7 +83,6 @@ $engine->_route('POST /test/@slug.json', function ($slug) use ($engine, $control
         $response = $controller->find($model->slug);
         return $engine->_json($response);
     }
-    throw new \Exception("Error Processing Request", 1);
 });
 
 $engine->_route('GET /log.json', function () use ($engine, $controller) {
@@ -113,8 +111,7 @@ try {
     echo $engine->_json([
         'error' => [
             'message' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
+            'code' => \JSB\Exception::APPLICATION_ERROR
         ],
     ], 400);
 }

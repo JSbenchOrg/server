@@ -148,7 +148,7 @@ class Revision
         if (count($errors) == 0) {
             return $data;
         }
-        throw (new Exception('Invalid input.'))->withDetails($errors);
+        throw (new Exception('Invalid input.', Exception::INVALID_REQUEST_BODY))->withDetails($errors);
     }
 
     public function isDraft() {

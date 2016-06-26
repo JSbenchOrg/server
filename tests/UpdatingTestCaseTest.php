@@ -45,7 +45,10 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
         Helper::createTestCase($modifier2, false, '/tests.json'); // create second
         $response = Helper::createTestCase($modifier1, false, '/test/slug-second.json'); // try to update the second with the first's slug (=> collision)
 
-        $reasonData = (object) ['reason' => 'There already is a test case with this slug [slug-first].'];
+        $reasonData = (object) [
+            'reason' => 'There already is a test case with this slug [slug-first].',
+            'code' => 'EXISTING_SLUG'
+        ];
         Helper::isErrorResponse(json_encode($response), 'Could not update the revision.', $reasonData);
 
         $database = Helper::getConnection();
