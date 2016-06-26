@@ -55,23 +55,26 @@ class Revision
                 $data->harness->tearDown
             ),
             $entries = array_map(function($rawEntry) use ($data) {
+                $totals = [];
+                if (isset($rawEntry->results) && is_object($rawEntry->results)) {
+                    $totals[] = new Metric(
+                        0,
+                        'opsPerSec',
+                        $rawEntry->results->opsPerSec,
+                        1,
+                        $data->env->browserName,
+                        $data->env->browserVersion,
+                        $data->env->os->architecture,
+                        $data->env->os->family,
+                        $data->env->os->version
+                    );
+                }
+
                 return new Entry(
                     0,
                     $rawEntry->title,
                     $rawEntry->code,
-                    [
-                        new Metric(
-                            0,
-                            'opsPerSec',
-                            $rawEntry->results->opsPerSec,
-                            1,
-                            $data->env->browserName,
-                            $data->env->browserVersion,
-                            $data->env->os->architecture,
-                            $data->env->os->family,
-                            $data->env->os->version
-                        ),
-                    ]
+                    $totals
                 );
             }, $data->entries)
         );
