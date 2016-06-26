@@ -92,8 +92,10 @@ class TestCase
 
                 throw $exception
                     ->withDetails([
-                        'reason' => $e->getMessage(),
-                        'code' => $e->getCode(),
+                        [
+                            'reason' => $e->getMessage(),
+                            'code' => $e->getCode(),
+                        ]
                     ]);
             }
             if ($revisionId > 0) { // was updated, grab new instance

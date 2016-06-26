@@ -87,7 +87,10 @@ class Revision
         $errors = [];
 
         if (!is_object($data)) {
-            $errors[] = 'Invalid structure.';
+            $errors[] = [
+                'reason' => 'Invalid structure.',
+                'code' => Exception::INVALID_STRUCTURE,
+            ];
         } else {
             // metadata
             $data->id = !empty($data->id) ? (int) $data->id : 0;
@@ -99,7 +102,10 @@ class Revision
             $data->status = empty($data->status) || !in_array($data->status, ['public', 'private']) ? 'private' : $data->status;
 
             if (empty($data->slug)) {
-                $errors[] = 'The slug is mandatory and should not be empty.';
+                $errors[] = [
+                    'reason' => 'The slug is mandatory and should not be empty.',
+                    'code' => Exception::NO_SLUG,
+                ];
             }
 
             if (empty($data->title)) {
@@ -107,13 +113,19 @@ class Revision
             }
 
             if (strlen($data->slug) > self::SETTING_SLUG_MAX_LENGTH) {
-                $errors[] = 'The slug shouldn\'t be longer than ' . self::SETTING_SLUG_MAX_LENGTH . ' chars.';
+                $errors[] = [
+                    'reason' => 'The slug shouldn\'t be longer than ' . self::SETTING_SLUG_MAX_LENGTH . ' chars.',
+                    'code' => Exception::SLUG_LENGTH_EXCEEDED
+                ];
             }
 
             // entries
             $data->entries = !empty($data->entries) ? (array) $data->entries : [];
             if (count($data->entries) < 2) {
-                $errors[] = 'At least two entries should be sent.';
+                $errors[] = [
+                    'reason' => 'At least two entries should be sent.',
+                    'code' => Exception::ENTRY_COUNT
+                ];
             }
 
             // check entry code collision
@@ -121,7 +133,10 @@ class Revision
             foreach ($data->entries as $entry) {
                 $hash = sha1($entry->code);
                 if (in_array($hash, $entriesCodeHashes)) {
-                    $errors[] = 'Duplicate entry code found [sha1: ' . $hash . ']. Only send unique values.';
+                    $errors[] = [
+                        'reason' => 'Duplicate entry code found [sha1: ' . $hash . ']. Only send unique values.',
+                        'code' => Exception::DUPLICATE_CODE_ENTRY
+                    ];
                 }
                 $entriesCodeHashes[] = $hash;
             }

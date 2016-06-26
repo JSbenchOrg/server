@@ -1,5 +1,6 @@
 <?php
 namespace JSBTests;
+use JSB\Exception;
 
 /**
  * Route: POST {BASE_URL}/testsa.json
@@ -12,7 +13,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
     public function testWillThrowAnExceptionWhenNoPayloadIsSent()
     {
         $responseBody = Helper::post(BASE_URL . '/tests.json', null);
-        Helper::isErrorResponse($responseBody, 'Invalid input.', ['Invalid structure.']);
+        Helper::isErrorResponse($responseBody, 'Invalid input.', [
+            (object) [
+                'reason' => 'Invalid structure.',
+                'code' => Exception::INVALID_STRUCTURE
+            ]
+        ]);
     }
 
     /**
@@ -21,7 +27,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
     public function testWillThrowAnExceptionWhenNoObjectPayloadIsSent()
     {
         $responseBody = Helper::post(BASE_URL . '/tests.json', 'abc');
-        Helper::isErrorResponse($responseBody, 'Invalid input.', ['Invalid structure.']);
+        Helper::isErrorResponse($responseBody, 'Invalid input.', [
+            (object) [
+                'reason' => 'Invalid structure.',
+                'code' => Exception::INVALID_STRUCTURE
+            ]
+        ]);
     }
 
     /**
@@ -33,7 +44,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
         unset($contents->slug);
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
-        Helper::isErrorResponse($responseBody, 'Invalid input.', ['The slug is mandatory and should not be empty.']);
+        Helper::isErrorResponse($responseBody, 'Invalid input.', [
+            (object) [
+                'reason' => 'The slug is mandatory and should not be empty.',
+                'code' => Exception::NO_SLUG
+            ]
+        ]);
     }
 
     /**
@@ -45,7 +61,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
         unset($contents->entries);
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
-        Helper::isErrorResponse($responseBody, 'Invalid input.', ['At least two entries should be sent.']);
+        Helper::isErrorResponse($responseBody, 'Invalid input.', [
+            (object) [
+                'reason' => 'At least two entries should be sent.',
+                'code' => Exception::ENTRY_COUNT,
+            ]
+        ]);
     }
 
     /**
@@ -57,7 +78,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
         $contents->entries = [end($contents->entries)];
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
-        Helper::isErrorResponse($responseBody, 'Invalid input.', ['At least two entries should be sent.']);
+        Helper::isErrorResponse($responseBody, 'Invalid input.', [
+            (object) [
+                'reason' => 'At least two entries should be sent.',
+                'code' => Exception::ENTRY_COUNT,
+            ]
+        ]);
     }
 
     /**
@@ -70,7 +96,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
             $contents->slug = $sampleData;
         };
         $item = Helper::createTestCase($modifier);
-        Helper::isErrorResponse(json_encode($item), 'Invalid input.', ['The slug shouldn\'t be longer than 255 chars.']);
+        Helper::isErrorResponse(json_encode($item), 'Invalid input.', [
+            (object) [
+                'reason' => 'The slug shouldn\'t be longer than 255 chars.',
+                'code' => Exception::SLUG_LENGTH_EXCEEDED,
+            ]
+        ]);
     }
 
     /**
@@ -86,8 +117,15 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
         $item = Helper::createTestCase($modifier);
 
         $expectedData = [
-            'The slug shouldn\'t be longer than 255 chars.',
-            'At least two entries should be sent.'
+            (object) [
+                'reason' => 'The slug shouldn\'t be longer than 255 chars.',
+                'code' => Exception::SLUG_LENGTH_EXCEEDED
+            ],
+            (object) [
+                'reason' => 'At least two entries should be sent.',
+                'code' => Exception::ENTRY_COUNT
+            ],
+
         ];
         Helper::isErrorResponse(json_encode($item), 'Invalid input.', $expectedData);
     }
@@ -246,7 +284,13 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
         };
         $shaHash = sha1('samplecode1');
         $item = Helper::createTestCase($modifier);
-        Helper::isErrorResponse(json_encode($item), 'Invalid input.', ['Duplicate entry code found [sha1: ' . $shaHash . ']. Only send unique values.']);
+
+        Helper::isErrorResponse(json_encode($item), 'Invalid input.', [
+            (object) [
+                'reason' => 'Duplicate entry code found [sha1: ' . $shaHash . ']. Only send unique values.',
+                'code' => Exception::DUPLICATE_CODE_ENTRY,
+            ]
+        ]);
     }
 
     /**

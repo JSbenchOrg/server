@@ -104,6 +104,7 @@ try {
         'error' => [
             'message' => $e->getMessage(),
             'data' => $e->getDetails(),
+            'code' => $e->getCode(),
         ],
     ], 400);
 
@@ -111,7 +112,7 @@ try {
     echo $engine->_json([
         'error' => [
             'message' => $e->getMessage(),
-            'code' => \JSB\Exception::APPLICATION_ERROR
+            'code' => \JSB\Exception::APPLICATION_ERROR,
         ],
     ], 400);
 }
