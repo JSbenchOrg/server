@@ -18,7 +18,7 @@ $allowedHosts = [
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS' && in_array($_SERVER['HTTP_ORIGIN'], $allowedHosts)) {
     if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
         header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
-        header('Access-Control-Allow-Headers: X-Requested-With');
+        header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');
     }
     exit;
 }
