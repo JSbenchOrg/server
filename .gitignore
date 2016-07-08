@@ -3,3 +3,4 @@
 extra/logs/
 phpunit.xml
 config.php
+extra/.version-bump-flag
