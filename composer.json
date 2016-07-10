@@ -1,0 +1,8 @@
+{
+  "name": "JSbenchOrg/server",
+  "autoload": {
+    "psr-4": {
+      "JSB\\": "app/"
+    }
+  }
+}
