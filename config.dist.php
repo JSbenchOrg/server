@@ -1,6 +1,7 @@
 <?php
 return [
     'debug' => false,
+    'live' => true,
     'baseUrl' => 'BASE_URL',
     'mysql-host' => 'MYSQL_HOST',
     'mysql-database' => 'MYSQL_DATABASE',
@@ -8,7 +9,6 @@ return [
     'mysql-password' => 'MYSQL_PASSWORD',
     'allowed-origins' => [
         'http://jsbench.org',
-        'http://www.jsbench.org',
         'PLACEHOLDER_ORIGIN'
     ],
 ];

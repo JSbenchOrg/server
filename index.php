@@ -10,21 +10,16 @@ require_once __DIR__ . '/app/Models/Revision.php';
 require_once __DIR__ . '/app/Exception.php';
 require_once __DIR__ . '/app/Store.php';
 
-$allowedHosts = [
-    'http://jsbench.org',
-    'http://www.jsbench.org',
-];
+// setup.php
+$config = require_once __DIR__ . '/config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS' && in_array($_SERVER['HTTP_ORIGIN'], $allowedHosts)) {
-    if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) && $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
-        header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS' && (!$config['live'] || in_array($_SERVER['HTTP_ORIGIN'], $config['allowed-origins']))) {
+    $requestMethod = 'HTTP_ACCESS_CONTROL_REQUEST_METHOD';
+    if (array_key_exists($requestMethod, $_SERVER) && $_SERVER[$requestMethod] == 'GET') {
         header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');
     }
     exit;
 }
-
-// setup.php
-$config = require_once __DIR__ . '/config.php';
 
 if ($config['debug']) {
     error_reporting(E_ALL);
