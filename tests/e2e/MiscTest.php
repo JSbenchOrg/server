@@ -25,8 +25,11 @@ class MiscTest extends \PHPUnit_Framework_TestCase
         );
 
         $debugResponse = print_r($headers, true) . PHP_EOL . $contents;
-        $isMoved = 'HTTP/1.1 301 Moved Permanently' == $headers[0] || 'HTTP/1.1 303 See Other' == $headers[0];
+        $isMoved = 'HTTP/1.1 303 See Other' == $headers[0];
         static::assertTrue($isMoved, $debugResponse);
-        static::assertContains('Location: ' . BASE_URL . '/tests.json', $headers, $debugResponse);
+
+        $locationString = 'Location: ' . BASE_URL;
+        $isLocationToTests = in_array($locationString . '/tests.json', $headers);
+        static::assertTrue($isLocationToTests, $debugResponse);
     }
 }
