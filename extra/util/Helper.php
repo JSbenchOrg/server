@@ -1,43 +1,62 @@
 <?php
 namespace JSBTests;
 
+require_once __DIR__ . '/../../deps/sparrow/sparrow.php';
+
 class Helper
 {
+    /** @var \PDO */
     protected $storage;
-    protected $migrationConfigFile;
+
+    /** @var  unique prefix, used to track a test run */
+    protected static $key;
+
+    protected $config;
+
     protected static $lastCallHeaders;
 
-    public function __construct()
+    public function __construct($config)
     {
-        $config = require __DIR__ . '/../config.php';;
-        $this->storage = new \Slim\PDO\Database($config['mysql']['dsn'], $config['mysql']['username'], $config['mysql']['password']);
+        $this->config = $config;
+        $this->storage = new \PDO(
+            'mysql:host=' . $config['mysql-host'] . ';dbname=' . $config['mysql-database'] . ';charset=utf8',
+            $config['mysql-username'],
+            $config['mysql-password']
+        );
     }
-    public function resetDatabase($databaseName)
+
+    public function resetDatabase()
     {
-        $statement = $this->storage->prepare('show tables');
-        $statement->execute();
-        $response = array_map(function($row) {return $row['Tables_in_' . $databaseName];}, $statement->fetchAll());
+        $config = $this->config;
+        $statement = $this->storage->query('show tables');
+
+        $response = array_map(function($row) use ($config) {return $row['Tables_in_' . $config['mysql-database']];}, $statement->fetchAll());
         if (!empty($response)) {
             foreach ($response as $table) {
-                $this->storage->prepare('drop table ' . $table)->execute();
+                $this->storage->exec('drop table ' . $table);
             }
         }
 
-
-        $this->storage->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-        $sqlFolder = __DIR__ . '/../extra/migrations/';
+        $this->storage->setAttribute(\PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+        $sqlFolder = __DIR__ . '/../migrations/';
         $files = scandir($sqlFolder);
 
         foreach ($files as $snapshotFile) {
-            if (strpos('migrations-', $snapshotFile) === 0) {
-                $temp = explode(";\n", file_get_contents($sqlFolder . $snapshotFile . '.sql'));
+            $match = strpos($snapshotFile, 'migration-');
+            if ($match === 0) {
+                echo "Snapshot file: " . $snapshotFile . "\n";
+                $loadedFile = $sqlFolder . $snapshotFile;
+                $contents = file_get_contents($loadedFile);
+                $temp = explode(";\n", $contents);
                 foreach ($temp as $statementString) {
                     if (!empty(trim($statementString))) {
                         $this->storage->exec($statementString);
                     }
                 }
+                echo "----------------------------------------------------------------------------------------------\n";
             }
         }
+        echo "\n\nDone\n\n";
     }
 
     public static function post($url, $contents)
@@ -98,7 +117,7 @@ class Helper
         static $connection;
 
         if (!($connection instanceof \Sparrow)) {
-            $config = require_once __DIR__ . '/../config.php';
+            $config = require_once __DIR__ . '/../../config.php';
             $dsn = 'mysql:host=' . $config['mysql-host'] . ';dbname=' . $config['mysql-database'] . ';charset=utf8';
             $connection = new \Sparrow();
             $connection->setDb(new \PDO($dsn, $config['mysql-username'], $config['mysql-password']));
@@ -109,7 +128,7 @@ class Helper
     public static function seed($seedName)
     {
         $database = static::getConnection();
-        $seed = file_get_contents(__DIR__ . '/../extra/seeds/' . $seedName . '.sql');
+        $seed = file_get_contents(__DIR__ . '/../../extra/seeds/' . $seedName . '.sql');
         $instructions = explode(";\n", $seed);
         foreach ($instructions as $instruction) {
             $database->sql($instruction)->execute();
@@ -144,7 +163,7 @@ class Helper
         if ($clearDatabase) {
             static::clearDatabase();
         }
-        $contents = json_decode(file_get_contents(__DIR__ . '/../extra/testcases/request.three-tests-with-setUp.json'));
+        $contents = json_decode(file_get_contents(__DIR__ . '/../../extra/testcases/request.three-tests-with-setUp.json'));
         $callback($contents);
 
         $responseBody = static::post(BASE_URL . $url, $contents);

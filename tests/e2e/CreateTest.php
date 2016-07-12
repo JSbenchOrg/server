@@ -5,10 +5,12 @@ use JSB\Exception;
 /**
  * Route: POST {BASE_URL}/testsa.json
  */
-class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
+class CreateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Will throw an exception when no payload is sent.
+     * @group initial
+     * @group database
      */
     public function testWillThrowAnExceptionWhenNoPayloadIsSent()
     {
@@ -23,6 +25,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will throw an exception when no object payload is sent.
+     * @group initial
+     * @group database
      */
     public function testWillThrowAnExceptionWhenNoObjectPayloadIsSent()
     {
@@ -37,10 +41,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will throw an exception when no slug is sent in the payload body.
+     * @group initial
+     * @group database
      */
     public function testWillThrowAnExceptionWhenNoSlugIsSentInThePayloadBody()
     {
-        $contents = json_decode(file_get_contents(__DIR__ . '/../extra/testcases/request.three-tests-with-setUp.json'));
+        $contents = json_decode(file_get_contents(__DIR__ . '/../../extra/testcases/request.three-tests-with-setUp.json'));
         unset($contents->slug);
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
@@ -54,10 +60,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will throw an exception when no entries are sent in the payload body.
+     * @group initial
+     * @group database
      */
     public function testWillThrowAnExceptionWhenNoEntriesAreSentInThePayloadBody()
     {
-        $contents = json_decode(file_get_contents(__DIR__ . '/../extra/testcases/request.three-tests-with-setUp.json'));
+        $contents = json_decode(file_get_contents(__DIR__ . '/../../extra/testcases/request.three-tests-with-setUp.json'));
         unset($contents->entries);
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
@@ -71,10 +79,12 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will throw an exception when less than two entries are sent in the payload body.
+     * @group initial
+     * @group database
      */
     public function testWillThrowAnExceptionWhenLessThanTwoEntriesAreSentInThePayloadBody()
     {
-        $contents = json_decode(file_get_contents(__DIR__ . '/../extra/testcases/request.three-tests-with-setUp.json'));
+        $contents = json_decode(file_get_contents(__DIR__ . '/../../extra/testcases/request.three-tests-with-setUp.json'));
         $contents->entries = [end($contents->entries)];
 
         $responseBody = Helper::post(BASE_URL . '/tests.json', $contents);
@@ -88,6 +98,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will throw exception the slug if longer than 255 chars.
+     * @group initial
+     * @group database
      */
     public function testWillTruncateTheDescriptionIfLongerThan255Chars()
     {
@@ -106,6 +118,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When more than one error are found then return them all in the error data property.
+     * @group initial
+     * @group database
      */
     public function testWhenMoreThanOneErrorAreFoundThenReturnThemAllInTheErrorDataProperty()
     {
@@ -132,6 +146,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the title with the slug value if the title is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheTitleWithTheSlugValueIfTheTitleIsNotSentInThePayload()
     {
@@ -149,6 +165,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will set the title with the value sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillSetTheTitleWithTheValueSentInThePayload()
     {
@@ -162,6 +180,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will truncate the title if longer than 255 chars.
+     * @group initial
+     * @group database
      */
     public function testWillTruncateTheTitleIfLongerThan255Chars()
     {
@@ -175,6 +195,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the description as empty if the description is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheDescriptionAsEmptyIfTheDescriptionIsNotSentInThePayload()
     {
@@ -190,6 +212,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will truncate the description if longer than 1000 chars.
+     * @group initial
+     * @group database
      */
     public function testWillTruncateTheDescriptionIfLongerThan1000Chars()
     {
@@ -203,6 +227,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the harness html as empty if it is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheHarnessHtmlAsEmptyIfItIsNotSentInThePayload()
     {
@@ -215,6 +241,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the harness setUp as empty if it is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheHarnessSetUpAsEmptyIfItIsNotSentInThePayload()
     {
@@ -227,6 +255,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the harness tearDown as empty if it is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheHarnessTearDownAsEmptyIfItIsNotSentInThePayload()
     {
@@ -239,6 +269,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will default the status to private if it is not sent in the payload.
+     * @group initial
+     * @group database
      */
     public function testWillDefaultTheStatusToPrivateIfItIsNotSentInThePayload()
     {
@@ -251,6 +283,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will set the status to public if it was sent as public.
+     * @group initial
+     * @group database
      */
     public function testWillSetTheStatusToPublicIfItWasSentAsPublic()
     {
@@ -263,6 +297,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will set the status to private if it was sent as private.
+     * @group initial
+     * @group database
      */
     public function testWillSetTheStatusToPrivateIfItWasSentAsPrivate()
     {
@@ -275,6 +311,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When duplicate code is sent in the entries for at least two entries then throw exception.
+     * @group initial
+     * @group database
      */
     public function testWhenDuplicateCodeIsSentInTheEntriesForAtLeastTwoEntriesThenThrowException()
     {
@@ -295,6 +333,8 @@ class CreatingTestCasesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When a different slug is sent, insert a new testcase.
+     * @group initial
+     * @group database
      */
     public function testWhenADifferentSlugIsSentInsertANewTestcase()
     {

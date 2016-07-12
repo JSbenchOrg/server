@@ -8,6 +8,9 @@ class MiscTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * When the root path is accessed, redirect to the tests.json path.
+     * @group initial
+     * @group anytime
+     * @group remote
      */
     public function testWhenTheRootPathIsAccessedRedirectToTheTestsJsonPath()
     {

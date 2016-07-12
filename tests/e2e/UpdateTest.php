@@ -4,10 +4,12 @@ namespace JSBTests;
 /**
  * Route: POST {BASE_URL}/test/{slug}.json
  */
-class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
+class UpdateTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * When a different slug is sent for an existing slug address, insert a new revision.
+     * @group initial
+     * @group database
      */
     public function testWhenADifferentSlugIsSentForAnExistingSlugAddressInsertANewRevision()
     {
@@ -32,6 +34,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When a different slug is sent for an existing slug address but the updated slug collides with an existing test case, then throw exception.
+     * @group initial
+     * @group database
      */
     public function testWhenADifferentSlugIsSentForAnExistingSlugAddressButTheUpdatedSlugCollidesWithAnExistingTestCaseThenThrowException()
     {
@@ -62,6 +66,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When a test case had 3 entries and the second one will not be sent, then a revision is created, totals for 1 and 3 are incremented and 2 will not be inherited to the revision. entry 3 will have the id 2 now.
+     * @group initial
+     * @group database
      */
     public function testWhenATestCaseHad3EntriesAndTheSecondOneWillNotBeSentThenARevisionIsCreatedTotalsFor1And3AreIncrementedAnd2WillNotBeInheritedToTheRevisionEntry3WillHaveTheId2Now()
     {
@@ -87,6 +93,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When the harness is changed then create a new revision.
+     * @group initial
+     * @group database
      */
     public function testWhenTheHarnessIsChangedThenCreateANewRevision()
     {
@@ -129,6 +137,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When the harness is not changed then don't create a new revision.
+     * @group initial
+     * @group database
      */
     public function testWhenTheHarnessIsNotChangedThenDonTCreateANewRevision()
     {
@@ -145,6 +155,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When the environment is changed, will not increment the revision, just merge the values.
+     * @group initial
+     * @group database
      */
     public function testWhenTheEnvironmentIsChangedWillNotIncrementTheRevisionJustMergeTheValues()
     {
@@ -188,6 +200,8 @@ class UpdatingTestCaseTest extends \PHPUnit_Framework_TestCase
     /**
      * sample
      * @depends testWhenTheEnvironmentIsChangedWillNotIncrementTheRevisionJustMergeTheValues
+     * @group initial
+     * @group database
      */
     public function testSample($item)
     {

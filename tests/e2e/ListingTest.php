@@ -8,12 +8,12 @@ class ListingTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Returns empty list when no test cases are in the database.
-     * @return \Sparrow
+     * @group initial
+     * @group remote
+     * @group anytime
      */
     public function testReturnsEmptyListWhenNoTestCasesAreInTheDatabase()
     {
-        Helper::clearDatabase();
-
         // get listing. check if route is available and later on, if headers are valid
         $data = Helper::get(BASE_URL . '/tests.json');
         $entry = json_decode($data);
@@ -25,9 +25,12 @@ class ListingTest extends \PHPUnit_Framework_TestCase
     /**
      * Returns an array with one test case when a test case is stored in the database.
      * @depends testReturnsEmptyListWhenNoTestCasesAreInTheDatabase
+     * @group initial
+     * @group database
      */
     public function testReturnsAnArrayWithOneTestCaseWhenATestCaseIsStoredInTheDatabase()
     {
+        Helper::clearDatabase();
         Helper::seed('three-tests-with-setUp');
 
         $data = Helper::get(BASE_URL . '/tests.json');
@@ -44,6 +47,8 @@ class ListingTest extends \PHPUnit_Framework_TestCase
     /**
      * The item has a title.
      * @depends testReturnsAnArrayWithOneTestCaseWhenATestCaseIsStoredInTheDatabase
+     * @group initial
+     * @group database
      */
     public function testTheItemHasATitle($entry)
     {
@@ -164,6 +169,8 @@ class ListingTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Returns a list of items but ignore older revisions - get only latest revisions for each test case.
+     * @group initial
+     * @group database
      */
     public function testReturnsAListOfItemsButIgnoreOlderRevisionsGetOnlyLatestRevisionsForEachTestCase()
     {

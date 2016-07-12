@@ -4,10 +4,12 @@ namespace JSBTests;
 /**
  * Route: GET {BASE_URL}/test/{slug}/revisions.json
  */
-class GettingTheRevisionsTest extends \PHPUnit_Framework_TestCase
+class GetRevisionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Get the revision list
+     * @group initial
+     * @group database
      */
     public function testGetTheRevisionList()
     {

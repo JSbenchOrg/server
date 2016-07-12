@@ -9,6 +9,8 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
     /**
      * Return a Not found error message when the slug is not found in the database.
      * @return \Sparrow
+     * @group initial
+     * @group database
      */
     public function testReturnANotFoundErrorMessageWhenTheSlugIsNotFoundInTheDatabase()
     {
@@ -28,10 +30,11 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Will return the item with the slug.
+     * @group initial
+     * @group database
      */
     public function testWillReturnTheItemWithTheSlug()
     {
-        Helper::clearDatabase();
         Helper::seed('three-tests-with-setUp');
 
         $data = Helper::get(BASE_URL . '/test/auto-generated-slug.json');
@@ -44,6 +47,8 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * When the slug is only found in a previous revision, then mark revision as a historical entity.
+     * @group initial
+     * @group database
      */
     public function testWhenTheSlugIsOnlyFoundInAPreviousRevisionThenMarkRevisionAsAHistoricalEntity()
     {

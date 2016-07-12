@@ -77,6 +77,9 @@ class Store
         $entriesByRevision = $this->getTestEntriesByRevisionIds($revisionIds);
 
         $listing = array_map(function($item) use ($entriesByRevision) {
+            $revisionEntries = array_key_exists($item['revision_id'], $entriesByRevision)
+                ? $entriesByRevision[$item['revision_id']]
+                : [];
             return (new Revision(
                 (int) $item['id'],
                 (int) $item['revision_id'],
@@ -109,7 +112,7 @@ class Store
                             );
                         }, $entry->results)
                     );
-                }, $entriesByRevision[$item['revision_id']])
+                }, $revisionEntries)
             ))->setIsDraft($item['is_latest'] !== '1');
         }, $rawRevisionItems);
 
