@@ -1,0 +1,10 @@
+language: php
+
+php:
+  - 5.6
+
+before_script:
+  - sudo apt-get install ncftpput
+  - git clone https://github.com/JSbenchOrg/deploy
+
+script: ./deploy/run-stage.sh
