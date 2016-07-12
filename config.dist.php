@@ -1,7 +1,7 @@
 <?php
 return [
     'debug' => false,
-    'live' => true,
+    'live' => false,
     'baseUrl' => 'BASE_URL',
     'mysql-host' => 'MYSQL_HOST',
     'mysql-database' => 'MYSQL_DATABASE',

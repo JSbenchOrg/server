@@ -15,6 +15,8 @@ class Helper
 
     protected static $lastCallHeaders;
 
+    protected static $flagIsRunningRemote;
+
     public function __construct($config)
     {
         $this->config = $config;
@@ -25,8 +27,21 @@ class Helper
         );
     }
 
+    protected static function isRunningOnRemote()
+    {
+        if (!is_bool(static::$flagIsRunningRemote)) {
+            static::$flagIsRunningRemote = file_exists(__DIR__ . '/../../.run-remote-flag');
+        }
+        return static::$flagIsRunningRemote;
+    }
+
     public function resetDatabase()
     {
+        if (static::isRunningOnRemote()) {
+            static::get(BASE_URL . '/migrate.php');
+            return null;
+        }
+
         $config = $this->config;
         $statement = $this->storage->query('show tables');
 
@@ -137,6 +152,11 @@ class Helper
 
     public static function clearDatabase()
     {
+        if (static::isRunningOnRemote()) {
+            static::get(BASE_URL . '/migrate.php');
+            return null;
+        }
+
         // empty all known tables
         $database = static::getConnection();
         array_map(

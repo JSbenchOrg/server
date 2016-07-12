@@ -10,10 +10,11 @@ before_script:
   - sudo apt-get -qq update
   - sudo apt-get install -y ncftp
   - git clone https://github.com/JSbenchOrg/deploy
-  - ./deploy/run-stage.sh
+  - ./deploy/run.sh stage
+  - touch .run-remote-flag
   - cp phpunit.dist.xml phpunit.xml
   - API_VERSION=$(cat VERSION | grep -Eo "v[[:digit:]].[[:digit:]]")
   - sed -i "s/http\:\/\/127\.0\.0\.1/https\:\/\/$DOMAIN_API\/$API_VERSION/g" phpunit.xml
 
 script:
-  - phpunit --group=remote
+  - phpunit
