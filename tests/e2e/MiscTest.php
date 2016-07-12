@@ -14,7 +14,7 @@ class MiscTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhenTheRootPathIsAccessedRedirectToTheTestsJsonPath()
     {
-        $contents = Helper::get(BASE_URL);
+        $contents = Helper::get(BASE_URL . '/');
         $headerString = Helper::getHeaders();
         $headerLines = explode("\n", $headerString);
         $headers = array_map(
