@@ -124,7 +124,7 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
 
     protected function assertExpectedEntries($table, $count)
     {
-        static::markTestSkipped();
+        static::markTestSkipped('Disabled for now. @todo rewrite tests to allow complete remote testing');
 
         $database = Helper::getConnection();
         $rawEntries = $database->from($table)->select()->execute()->fetchAll();

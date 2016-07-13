@@ -13,6 +13,7 @@ class GetRevisionsTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetTheRevisionList()
     {
+        static::markTestSkipped('Disabled for now. @todo rewrite tests to allow complete remote testing');
         $slug = 'check-revisions-increment-on-harness-change';
 
         $defaultSlug = function ($contents) use ($slug) {

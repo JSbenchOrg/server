@@ -30,6 +30,8 @@ class ListingTest extends \PHPUnit_Framework_TestCase
      */
     public function testReturnsAnArrayWithOneTestCaseWhenATestCaseIsStoredInTheDatabase()
     {
+        static::markTestSkipped('Disabled for now. @todo rewrite tests to allow complete remote testing');
+
         Helper::clearDatabase();
         Helper::seed('three-tests-with-setUp');
 
@@ -174,6 +176,8 @@ class ListingTest extends \PHPUnit_Framework_TestCase
      */
     public function testReturnsAListOfItemsButIgnoreOlderRevisionsGetOnlyLatestRevisionsForEachTestCase()
     {
+        static::markTestSkipped('Disabled for now. @todo rewrite tests to allow complete remote testing');
+
         $createFirst = function ($contents) {
             $contents->slug = 'test-first';
         };
