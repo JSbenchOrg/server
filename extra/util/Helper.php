@@ -43,12 +43,14 @@ class Helper
         }
 
         $config = $this->config;
-        $statement = $this->storage->query('show tables');
+        $statement = $this->storage->prepare('show tables');
+        $statement->execute();
 
         $response = array_map(function($row) use ($config) {return $row['Tables_in_' . $config['mysql-database']];}, $statement->fetchAll());
         if (!empty($response)) {
             foreach ($response as $table) {
-                $this->storage->exec('drop table ' . $table);
+                $statement = $this->storage->prepare('drop table ' . $table);
+                $statement->execute();
             }
         }
 
@@ -64,8 +66,10 @@ class Helper
                 $contents = file_get_contents($loadedFile);
                 $temp = explode(";\n", $contents);
                 foreach ($temp as $statementString) {
-                    if (!empty(trim($statementString))) {
-                        $this->storage->exec($statementString);
+                    $statementString = trim($statementString);
+                    if (!empty($statementString)) {
+                        $statement = $this->storage->prepare($statementString);
+                        $statement->execute();
                     }
                 }
                 echo "----------------------------------------------------------------------------------------------\n";
@@ -142,6 +146,10 @@ class Helper
 
     public static function seed($seedName)
     {
+        if (static::isRunningOnRemote()) {
+            static::get(BASE_URL . '/seed.php?name=' . $seedName);
+            return null;
+        }
         $database = static::getConnection();
         $seed = file_get_contents(__DIR__ . '/../../extra/seeds/' . $seedName . '.sql');
         $instructions = explode(";\n", $seed);

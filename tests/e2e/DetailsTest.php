@@ -35,6 +35,7 @@ class DetailsTest extends \PHPUnit_Framework_TestCase
      */
     public function testWillReturnTheItemWithTheSlug()
     {
+        Helper::clearDatabase();
         Helper::seed('three-tests-with-setUp');
 
         $data = Helper::get(BASE_URL . '/test/auto-generated-slug.json');

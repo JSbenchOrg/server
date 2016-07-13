@@ -338,6 +338,7 @@ class CreateTest extends \PHPUnit_Framework_TestCase
      */
     public function testWhenADifferentSlugIsSentInsertANewTestcase()
     {
+        Helper::clearDatabase();
         $modifier1 = function ($contents) {
             $contents->slug = 'slug-1';
         };
@@ -348,8 +349,8 @@ class CreateTest extends \PHPUnit_Framework_TestCase
         Helper::createTestCase($modifier1);
         Helper::createTestCase($modifier2, false);
 
-        $database = Helper::getConnection();
-        $rawEntries = $database->from('testcases')->select()->execute()->fetchAll();
-        static::assertEquals(2, count($rawEntries));
+        $data = Helper::get(BASE_URL . '/tests.json');
+        $entries = json_decode($data);
+        static::assertEquals(2, count($entries));
     }
 }
